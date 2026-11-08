@@ -29,7 +29,7 @@ struct PlayView: View {
                         if library.loading {
                             ProgressView().tint(Theme.ink(0.8)).frame(maxWidth: .infinity)
                         } else {
-                            Text("No builds found on \(store.repo).").font(.geist(14)).foregroundStyle(Theme.ink(0.7))
+                            Text("No builds found on \(store.effectiveRepo).").font(.geist(14)).foregroundStyle(Theme.ink(0.7))
                         }
                     }
                 }

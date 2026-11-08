@@ -92,8 +92,17 @@ final class Store: ObservableObject {
 
     var gitHubClient: GitHub { gitHub }
 
+    /// The repository this app was built for: what an empty Settings field means.
+    static let bundledRepo = Bundle.main.object(forInfoDictionaryKey: "HorizonRepo") as? String ?? ""
+
+    /// The fork in Settings, or this app's own repository while the field is empty.
+    var effectiveRepo: String {
+        let typed = repo.trimmingCharacters(in: .whitespaces)
+        return typed.isEmpty ? Self.bundledRepo : typed
+    }
+
     private var gitHub: GitHub {
-        GitHub(repo: repo.trimmingCharacters(in: .whitespaces),
+        GitHub(repo: effectiveRepo,
                token: Self.tutorial != nil ? "" : token.trimmingCharacters(in: .whitespacesAndNewlines))
     }
 

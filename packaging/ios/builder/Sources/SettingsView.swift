@@ -18,7 +18,7 @@ struct SettingsView: View {
                 Color.clear.frame(height: 0).id("repo")
                 Plate("Your fork") {
                     FieldBox {
-                        TextField("", text: $store.repo, prompt: Text("owner/repository").foregroundColor(Theme.ink(0.4)))
+                        TextField("", text: $store.repo, prompt: Text(Store.bundledRepo.isEmpty ? "owner/repository" : Store.bundledRepo).foregroundColor(Theme.ink(0.4)))
                             .font(.mono(15))
                             .foregroundStyle(Theme.ink(1))
                             .textInputAutocapitalization(.never)
@@ -117,7 +117,7 @@ struct SettingsView: View {
                         .font(.geist(14))
                         .foregroundStyle(Theme.ink(0.75))
                     HStack {
-                        if let url = URL(string: "https://github.com/\(store.repo)/releases") {
+                        if let url = URL(string: "https://github.com/\(store.effectiveRepo)/releases") {
                             Link(destination: url) {
                                 HStack(spacing: 6) {
                                     HIcon(name: "link-01", size: 16)
